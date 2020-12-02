@@ -15,7 +15,7 @@ app.get('/subscribers/names', (req, res) => {
 });
 app.get('/subscribers/:id', (req, res) => {
     const id = req.params.id;
-    Subscriber.find({_id: id}).then(subscribers => res.send(subscribers)).catch(error => res.status(400).send({message: error.message}));
+    Subscriber.find({_id: id}).select({name: 1, subscribedChannel: 1}).then(subscribers => res.send(subscribers)).catch(error => res.status(400).send({message: error.message}));
     return;
 });
 
