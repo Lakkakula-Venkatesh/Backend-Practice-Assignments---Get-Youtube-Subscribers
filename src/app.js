@@ -16,10 +16,7 @@ app.get('/subscribers/names', (req, res) => {
 });
 app.get('/subscribers/:id', (req, res) => {
     const id = req.params.id;
-    let currentSubscriber = [];
-    Subscriber.findById({_id: id}).then(subscribers => res.send(subscribers));
-    // console.log(currentSubscriber);
-    // res.send(currentSubscriber[0]);
+    Subscriber.find({_id : id}).then(sub => sub.map(sub => res.send(sub))  ).catch(error => res.status(400).send({message: error.message}));
     return;
 });
 
