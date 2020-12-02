@@ -2,6 +2,7 @@
 const express = require('express');
 const app = express();
 const Subscriber = require('./models/subscribers');
+const ObjectId = require("mongoose");
 
 
 // Your code goes here
@@ -15,7 +16,10 @@ app.get('/subscribers/names', (req, res) => {
 });
 app.get('/subscribers/:id', (req, res) => {
     const id = req.params.id;
-    Subscriber.find({_id: id}).select({name: 1, subscribedChannel: 1}).then(subscribers => res.send(subscribers)).catch(error => res.status(400).send({message: error.message}));
+    let currentSubscriber = [];
+    Subscriber.findById({_id: id}).then(subscribers => res.send(subscribers));
+    // console.log(currentSubscriber);
+    // res.send(currentSubscriber[0]);
     return;
 });
 
